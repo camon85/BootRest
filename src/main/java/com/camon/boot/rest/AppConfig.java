@@ -7,6 +7,9 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 import javax.sql.DataSource;
 
@@ -34,5 +37,14 @@ public class AppConfig {
     @Primary
     DataSource dataSource() {
         return new Log4jdbcProxyDataSource(this.dataSource);
+    }
+
+    @Order(Ordered.HIGHEST_PRECEDENCE)
+    @Bean
+    CharacterEncodingFilter chracterEncodingFilter() {
+       CharacterEncodingFilter filter = new CharacterEncodingFilter();
+        filter.setEncoding("UTF-8");
+        filter.setForceEncoding(true);
+        return filter;
     }
 }

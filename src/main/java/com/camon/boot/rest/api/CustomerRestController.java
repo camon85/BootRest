@@ -3,6 +3,9 @@ package com.camon.boot.rest.api;
 import com.camon.boot.rest.domain.Customer;
 import com.camon.boot.rest.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +27,8 @@ public class CustomerRestController {
     CustomerService service;
 
     @RequestMapping(method = GET)
-    List<Customer> getCustomers() {
-        List<Customer> customers = service.findAll();
+    Page<Customer> getCustomers(@PageableDefault Pageable pageable) {
+        Page<Customer> customers = service.findAll(pageable);
         return customers;
     }
 

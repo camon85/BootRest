@@ -3,11 +3,11 @@ package com.camon.boot.rest.service;
 import com.camon.boot.rest.domain.Customer;
 import com.camon.boot.rest.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-
 import javax.transaction.Transactional;
-import java.util.List;
 
 /**
  * Created by jooyong on 2015-11-11.
@@ -18,8 +18,8 @@ public class CustomerService {
     @Autowired
     CustomerRepository repository;
 
-    public List<Customer> findAll() {
-        return repository.findAllOrderByName();
+    public Page<Customer> findAll(Pageable pageable) {
+        return repository.findAllOrderByName(pageable);
     }
 
     public Customer findOne(Integer id) {

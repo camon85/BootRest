@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * Created by jooyong on 2015-11-11.
@@ -36,5 +37,10 @@ public class CustomerService {
 
     public void delete(Integer id) {
         repository.delete(id);
+    }
+
+
+    public List<Customer> findAll() {
+        return repository.findAll();
     }
 }

@@ -12,3 +12,5 @@ spring:
     url: jdbc:h2:file:c:/tmp/testdb
     username: sa
     password:
+
+spring.thymeleaf.cache: false

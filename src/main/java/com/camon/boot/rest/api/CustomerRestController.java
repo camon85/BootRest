@@ -3,9 +3,13 @@ package com.camon.boot.rest.api;
 import com.camon.boot.rest.domain.Customer;
 import com.camon.boot.rest.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
@@ -32,9 +36,12 @@ public class CustomerRestController {
     }
 
     @RequestMapping(method = POST)
-    @ResponseStatus(HttpStatus.CREATED)
-    Customer postCustomers(@RequestBody Customer customer) {
-        return service.create(customer);
+    ResponseEntity<Customer> postCustomers(@RequestBody Customer customer, UriComponentsBuilder uriComponentsBuilder) {
+        Customer created = service.create(customer);
+        URI location = uriComponentsBuilder.path("api/customers/{id}").buildAndExpand(created.getId()).toUri();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(location);
+        return new ResponseEntity<>(created, headers, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "{id}", method = PUT)

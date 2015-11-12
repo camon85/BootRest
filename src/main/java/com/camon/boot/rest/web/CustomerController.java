@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -44,6 +45,31 @@ public class CustomerController {
         Customer customer = new Customer();
         BeanUtils.copyProperties(form, customer);
         customerService.create(customer);
+        return "redirect:/customers";
+    }
+
+    @RequestMapping(value = "edit", params = "form", method = GET)
+    String editForm(@RequestParam Integer id, CustomerForm form) {
+        Customer customer = customerService.findOne(id);
+        BeanUtils.copyProperties(customer, form);
+        return "customers/edit";
+    }
+
+    @RequestMapping(value = "edit", method = POST)
+    String edit(@RequestParam Integer id, @Validated CustomerForm form, BindingResult result) {
+        if (result.hasErrors()) {
+            return editForm(id, form);
+        }
+
+        Customer customer = new Customer();
+        BeanUtils.copyProperties(form, customer);
+        customer.setId(id);
+        customerService.update(customer);
+        return "redirect:/customers";
+    }
+
+    @RequestMapping(value = "edit", params = "goToTop")
+    String goToTop() {
         return "redirect:/customers";
     }
 

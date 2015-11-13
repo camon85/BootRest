@@ -49,6 +49,10 @@
             <artifactId>log4jdbc-remix</artifactId>
             <version>0.2.7</version>
         </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
 
         <!--webjars-->
         <dependency>

@@ -36,21 +36,21 @@ public class CustomerRestController {
         Customer customer = service.findOne(id);
         return customer;
     }
-
-    @RequestMapping(method = POST)
-    ResponseEntity<Customer> postCustomers(@RequestBody Customer customer, UriComponentsBuilder uriComponentsBuilder) {
-        Customer created = service.create(customer);
-        URI location = uriComponentsBuilder.path("api/customers/{id}").buildAndExpand(created.getId()).toUri();
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(location);
-        return new ResponseEntity<>(created, headers, HttpStatus.CREATED);
-    }
-
-    @RequestMapping(value = "{id}", method = PUT)
-    Customer putCustomer(@PathVariable Integer id, @RequestBody Customer customer) {
-        customer.setId(id);
-        return service.update(customer);
-    }
+//
+//    @RequestMapping(method = POST)
+//    ResponseEntity<Customer> postCustomers(@RequestBody Customer customer, UriComponentsBuilder uriComponentsBuilder) {
+//        Customer created = service.create(customer);
+//        URI location = uriComponentsBuilder.path("api/customers/{id}").buildAndExpand(created.getId()).toUri();
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setLocation(location);
+//        return new ResponseEntity<>(created, headers, HttpStatus.CREATED);
+//    }
+//
+//    @RequestMapping(value = "{id}", method = PUT)
+//    Customer putCustomer(@PathVariable Integer id, @RequestBody Customer customer) {
+//        customer.setId(id);
+//        return service.update(customer);
+//    }
 
     @RequestMapping(value = "{id}", method = DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)

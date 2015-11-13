@@ -1,6 +1,7 @@
 package com.camon.boot.rest.service;
 
 import com.camon.boot.rest.domain.Customer;
+import com.camon.boot.rest.domain.User;
 import com.camon.boot.rest.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,11 +28,13 @@ public class CustomerService {
         return repository.findOne(id);
     }
 
-    public Customer create(Customer customer) {
+    public Customer create(Customer customer, User user) {
+        customer.setUser(user);
         return repository.save(customer);
     }
 
-    public Customer update(Customer customer) {
+    public Customer update(Customer customer, User user) {
+        customer.setUser(user);
         return repository.save(customer);
     }
 
